@@ -28,8 +28,6 @@ func main() {
 
 	letters := os.Args[1]
 
-	nodes, results := solver.SolvePuzzle(letters, dictionary)
-
 	from := 3
 	to := len(letters)
 	if len(os.Args) >= 3 {
@@ -41,6 +39,7 @@ func main() {
 	if to > len(letters) {
 		to = len(letters)
 	}
+	nodes, results := solver.SolvePuzzle(letters, dictionary, from, to)
 	//print results
 	for i := from; i <= to; i++ {
 		fmt.Printf("%d %s \n", i, results[i])

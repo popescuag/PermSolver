@@ -1,5 +1,5 @@
 # About
-This is a simple letter permutation application. It receives as an input a set of letters, the length of the desired results and it returns all the dictionary words that contain combinations of letters received as an input.
+This is a simple letter permutation application. It receives as an input a set of letters, the length of the desired results and it returns all the English dictionary words that contain combinations of letters received as an input.
 
 It also allows the user to update the dictionary with new words if needed.
 
