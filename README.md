@@ -7,8 +7,7 @@ It also allows the user to update the dictionary with new words if needed.
 To run the application you need to have Golang installed.
 1. Perm solver
 - Clone the repository locally
-- From PermSolver folder run
-<code>go run cmd/main.go mansion 4 5</code>
+- From PermSolver folder run <code>go run cmd/main.go mansion 4 5</code>
 
 The result will be the list of words that have between 4 and 5 letters, ordered alphabetically, that contain letters from "mansion".
 
@@ -16,7 +15,6 @@ If only the initial word is passed as argument the application will return all t
 
 2. Add to dictionary
 - Clone the repository locally
-- From PermSolver folder run
-<code>go run cmd/main.go add newWord
+- From PermSolver folder run <code>go run cmd/main.go add newWord</code>
 
 Enjoy!
