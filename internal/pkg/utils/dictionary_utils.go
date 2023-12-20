@@ -2,9 +2,13 @@ package utils
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func ReadDictionaryFile() map[string]bool {
@@ -27,24 +31,46 @@ func ReadDictionaryFile() map[string]bool {
 	return dictionary
 }
 
-func AddToDictionaryFile(dictionary map[string]bool, word string) {
+func IsWordInDictionary(dictionary map[string]bool, word string) bool {
 	_, found1 := dictionary[word]
-	_, found2 := dictionary[strings.Title(word)]
+	_, found2 := dictionary[cases.Title(language.AmericanEnglish).String(word)]
 	_, found3 := dictionary[strings.ToUpper(word)]
 
-	if !found1 && !found2 && !found3 {
-		file, err := os.OpenFile("words.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		if err != nil {
-			log.Fatal(err)
-		}
+	return !found1 && !found2 && !found3
+}
 
-		_, err = file.Write([]byte(word))
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer file.Close()
-		log.Printf("Added %v to dictionary", word)
-	} else {
-		log.Printf("Word %v already in dictionary", word)
+func AddToDictionary(dictionary map[string]bool, word string) {
+	dictionary[word] = false
+}
+
+// func AddToFile(word string) {
+// 	file, err := os.OpenFile("words.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	_, err = file.Write([]byte(fmt.Sprintf("\n%v", word)))
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer file.Close()
+// 	log.Printf("Added %v to file", word)
+// }
+
+func GetDictionaryFile() *os.File {
+	file, err := os.OpenFile("words.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
 	}
+	return file
+}
+
+func AddToFile(file *os.File, word string) (int, error) {
+	n, err := file.Write([]byte(fmt.Sprintf("\n%v", word)))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	log.Printf("Added %v to file", word)
+	return n, err
 }

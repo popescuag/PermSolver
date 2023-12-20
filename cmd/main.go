@@ -22,7 +22,14 @@ func main() {
 	dictionary := utils.ReadDictionaryFile()
 
 	if os.Args[1] == "add" {
-		utils.AddToDictionaryFile(dictionary, os.Args[2])
+		word := os.Args[2]
+		if !utils.IsWordInDictionary(dictionary, word) {
+			utils.AddToDictionary(dictionary, word)
+			file := utils.GetDictionaryFile()
+			utils.AddToFile(file, word)
+		} else {
+			log.Printf("Word %v already in dictionary", word)
+		}
 		return
 	}
 
