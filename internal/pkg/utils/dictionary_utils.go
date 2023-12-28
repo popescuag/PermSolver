@@ -36,26 +36,12 @@ func IsWordInDictionary(dictionary map[string]bool, word string) bool {
 	_, found2 := dictionary[cases.Title(language.AmericanEnglish).String(word)]
 	_, found3 := dictionary[strings.ToUpper(word)]
 
-	return !found1 && !found2 && !found3
+	return found1 || found2 || found3
 }
 
 func AddToDictionary(dictionary map[string]bool, word string) {
 	dictionary[word] = false
 }
-
-// func AddToFile(word string) {
-// 	file, err := os.OpenFile("words.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	_, err = file.Write([]byte(fmt.Sprintf("\n%v", word)))
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer file.Close()
-// 	log.Printf("Added %v to file", word)
-// }
 
 func GetDictionaryFile() *os.File {
 	file, err := os.OpenFile("words.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

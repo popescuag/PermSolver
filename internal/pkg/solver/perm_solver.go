@@ -2,7 +2,6 @@ package solver
 
 import (
 	"sort"
-	"strings"
 
 	"github.com/popescuag/PermSolver/internal/pkg/utils"
 )
@@ -50,10 +49,7 @@ func expandNode(currentNode *treeNode, results *map[int][]string, dictionary map
 		wordLen := len(newChild.pathToRoot)
 		if wordLen >= 3 {
 			//check if the word is in the dictionary
-			_, found1 := dictionary[newChild.pathToRoot]
-			_, found2 := dictionary[strings.Title(newChild.pathToRoot)]
-			_, found3 := dictionary[strings.ToUpper(newChild.pathToRoot)]
-			if found1 || found2 || found3 {
+			if utils.IsWordInDictionary(dictionary, newChild.pathToRoot) {
 				var arr = (*results)[wordLen]
 				//add to results map if not already there
 				if !utils.Contains(arr, newChild.pathToRoot) {

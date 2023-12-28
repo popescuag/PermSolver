@@ -3,6 +3,7 @@ package utils
 import (
 	"log"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/test-go/testify/assert"
@@ -22,6 +23,27 @@ func TestAddToDictionary(t *testing.T) {
 	AddToDictionary(dictionary, word)
 	_, exists := dictionary[word]
 	assert.Equal(t, true, exists)
+}
+
+func TestIsWordInDictionary1(t *testing.T) {
+	word := "dummy"
+	dictionary := make(map[string]bool)
+	dictionary[word] = false
+	assert.True(t, IsWordInDictionary(dictionary, word))
+}
+
+func TestIsWordInDictionary2(t *testing.T) {
+	word := "DUMMY"
+	dictionary := make(map[string]bool)
+	dictionary[word] = false
+	assert.True(t, IsWordInDictionary(dictionary, strings.ToLower(word)))
+}
+
+func TestIsWordInDictionary3(t *testing.T) {
+	word := "Dummy"
+	dictionary := make(map[string]bool)
+	dictionary[word] = false
+	assert.True(t, IsWordInDictionary(dictionary, strings.ToLower(word)))
 }
 
 func TestAddToFile(t *testing.T) {
